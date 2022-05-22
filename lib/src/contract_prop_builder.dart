@@ -6,6 +6,33 @@ typedef ContractBuilder<T> = Widget Function(
   T contract,
 );
 
+/// Contract prop builder
+///
+/// used for get contract from scope or default contract [contract]
+///
+/// [contract] - default contract
+/// [builder] - builder provide contract from [ContractScope] or default
+/// contract
+///
+/// ```dart
+///
+/// class LabelContract with ContractInterface {
+///   final String name;
+///
+///   LabelContract({this.name = 'foo bar'});
+///
+///   ContractProp<String> get label => ContractProp<String>(contract: (_) => name);
+/// }
+///
+///
+/// ContractPropBuilder<LabelContract>(
+///   contract: LabelContract(),
+///   builder: (_, contract) => Text(
+///     text ?? contract.label.value(context) ?? '',
+///   ),
+/// );
+/// ```
+///
 class ContractPropBuilder<T> extends StatelessWidget {
   final ContractBuilder<T> builder;
   final T contract;
@@ -18,6 +45,7 @@ class ContractPropBuilder<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// skip contract from [ContractScope] if found [ContractIgnore] in tree
     if (context.findAncestorWidgetOfExactType<ContractIgnore>() != null) {
       return builder(context, contract);
     }

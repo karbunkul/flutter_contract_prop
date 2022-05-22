@@ -14,8 +14,7 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return ContractScope(
           contracts: [
-            CustomLabelContract(),
-            LabelContract(name: 'hello world'),
+            LabelContract(name: 'Hello world'),
           ],
           child: child!,
         );
@@ -46,7 +45,7 @@ class DemoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ContractIgnore(child: ContractText());
+    return const ContractText();
   }
 }
 

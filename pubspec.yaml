@@ -1,7 +1,7 @@
 name: contract_prop
-description: A new Flutter project.
-version: 0.0.1
-homepage:
+description: Dependency Injection (DI) for widget properties, provide override contract from inherited scope.
+version: 0.9.0
+repository: https://github.com/karbunkul/flutter_contract_prop
 
 environment:
   sdk: ">=2.16.2 <3.0.0"

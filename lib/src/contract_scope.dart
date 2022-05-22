@@ -1,6 +1,11 @@
 import 'package:contract_prop/contract_prop.dart';
 import 'package:flutter/widgets.dart';
 
+/// Contract scope
+///
+/// provides override contracts
+///
+/// [contracts] - list of override contracts
 class ContractScope extends InheritedWidget {
   final List<ContractInterface> contracts;
 

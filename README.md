@@ -1,39 +1,67 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# contract_prop
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Dependency Injection (DI) for widget properties, provide override contract from inherited scope.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add package to your project ``` flutter pub add any_to_widget```
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Implements ContractInterface for your contract. For example
 
 ```dart
-const like = 'sample';
+class LabelContract with ContractInterface {
+  final String name;
+
+  LabelContract({this.name = 'foo bar'});
+
+  ContractProp<String> get label => ContractProp<String>(contract: (_) => name);
+}
+```
+
+Create widget, wrap your widget ContractPropBuilder
+
+```dart
+class ContractText extends StatelessWidget {
+  final String? text;
+
+  const ContractText({Key? key, this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ContractPropBuilder<LabelContract>(
+      contract: LabelContract(),
+      builder: (_, contract) => Text(
+        text ?? contract.label.value(context) ?? '',
+      ),
+    );
+  }
+}
+```
+
+Override contracts
+
+```dart
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      builder: (_, child) {
+        return ContractScope(
+          contracts: [
+            LabelContract(name: 'Hello world'),
+          ],
+          child: child!,
+        );
+      },
+      home: const Scaffold(body: Center(child: DemoPage())),
+    );
+  }
+}
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+See tests for more example

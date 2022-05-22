@@ -1,5 +1,12 @@
 import 'package:flutter/widgets.dart';
 
+/// Contract ignore
+///
+/// ignore contract from [ContractScope]
+///
+/// ```dart
+///  const ContractIgnore(child: ContractText());
+/// ```
 class ContractIgnore extends StatelessWidget {
   final Widget child;
 
